@@ -27,7 +27,7 @@ export const getUserById = (id, result) => {
 
 //insert user
 export const insertUser = (data, result) => {
-  db.query("INSERT INTO  users SET ?", [data], (err, results) => {
+  db.query("INSERT INTO users SET ?", [data], (err, results) => {
     if(err) {
       console.log(err);
       result(err, null);

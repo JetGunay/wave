@@ -8,12 +8,12 @@ const store = createStore({
     user: {
       data: {},
       // id: "KUAJERLJ", //dev
-      // id: "KUAJERIS", //motion
-      id: "KUAJEP4F", //des
+      id: "KUAJERIS", //motion
+      // id: "KUAJEP4F", //des
       role: 2, //teamlead
       // group_id: "KX724IUQ", //dev
-      // group_id: "KX724M7F", //motion
-      group_id: "KX724M7I", //des
+      group_id: "KX724M7F", //motion
+      // group_id: "KX724M7I", //des
       // brands: "Coral Sports,Coral Gaming,Coral Retail,Ladbrokes Sports,Ladbrokes Gaming,Ladbrokes Retail",
       brands: "Coral Sports,Coral Gaming,Coral Retail,Ladbrokes Sports,Ladbrokes Gaming,Ladbrokes Retail,Cheeky,Foxy Bingo,Foxy Games,Gala Bingo,Gala Casino,Gala Spins,bwin Sports,bwin Casino,PartyCasino,PartyPoker,PartySports,PartyGaming",
     },
@@ -36,6 +36,18 @@ const store = createStore({
     //   data: api.brands
     // }
     brands: {
+      data: {}
+    },
+    task: {
+      data: {}
+    },
+    folder: {
+      data: {}
+    },
+    qadesmg: {
+      data: api.qadesmg
+    },
+    qaDB: {
       data: {}
     }
   },
@@ -62,10 +74,31 @@ const store = createStore({
           return err;
         })
     },
+    //user logged in
     getUserData({ commit }, id) {
       return axiosClient.get(`/contacts/${id}`)
         .then((res) => {
           commit('setUserData', res.data.data)
+          return res;
+        })
+        .catch(err => {
+          return err;
+        })
+    },
+    getTask({ commit }, id) {
+      return axiosClient.get(`/tasks/${id}`)
+        .then((res) => {
+          commit('setTask', res.data.data)
+          return res;
+        })
+        .catch(err => {
+          return err;
+        })
+    },
+    getFolder({ commit }, id) {
+      return axiosClient.get(`/folders/${id}` || `/tasks/${id}`)
+        .then((res) => {
+          commit('setFolder', res.data.data)
           return res;
         })
         .catch(err => {
@@ -93,6 +126,17 @@ const store = createStore({
           return err;
         })
     },
+    getQAinDB({ commit }) {
+      return axios.get('http://localhost:8000/review')
+        .then((res) => {
+          commit('setQAinDB', res.data)
+          return res;
+        })
+        .catch(err => {
+          console.log(err);
+          return err;
+        })
+    }
   },
   mutations: {
     setGroupsData: (state, data) => {
@@ -101,8 +145,15 @@ const store = createStore({
     setGroup: (state, data) => {
       state.grp.data = data;
     },
+    //user logged in
     setUserData: (state, data) => {
       state.userAPI.data = data;
+    },
+    setTask: (state, data) => {
+      state.task.data = data;
+    },
+    setFolder: (state, data) => {
+      state.folder.data = data;
     },
     setBrands: (state, data) => {
       state.brands.data = data;
@@ -113,6 +164,9 @@ const store = createStore({
     },
     setUserinDB: (state, data) => {
       state.userDB.data = data;
+    },
+    setQAinDB: (state, data) => {
+      state.qaDB.data = data;
     }
   }
 });

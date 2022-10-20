@@ -2,7 +2,7 @@
   <div>
     <!-- <NuxtLink to="/user/add" class="button is-success mt-5">Add New</NuxtLink> -->
     <NuxtLayout>
-      <Modal :showModal="showModal" :userdb="userdb" :message="message" :group="group" :role="role" :brands="brands" :users="users" @cbTeam="grpId" />
+      <AddUser :showModal="showModal" :userdb="userdb" :message="message" :group="group" :role="role" :brands="brands" :users="users" @cbTeam="grpId" />
       <!-- <UserList :items="items" :name="userdata" :group="groupdata" :role="role" /> -->
       <UserList :userdb="userdb" :user_img="user_img" :fname="fname" :lname="lname" :grp="grp" :role="role" />
     </NuxtLayout>
@@ -72,30 +72,47 @@ export default {
         })
     })
 
+    const fname = computed(() => {
+      return userapi.value.map((f) => f.firstName)
+    });
+    const lname = computed(() => {
+      return userapi.value.map((f) => f.lastName)
+    });
+    const user_img = computed(() => {
+      return userapi.value.map((i) => i.avatarUrl)
+    });
+    const grp = computed(() => {
+      return groupapi.value.map((t) => t.title)
+    })
+
     return { 
       group, 
       role, 
       brands,
       userapi, 
       groupapi,
+      fname,
+      lname,
+      user_img,
+      grp
     } 
   },
   created() {},
   mounted() {},
   computed: {
-    fname() {
-      console.log(this.userdb)
-      return this.userapi.map((f) => f.firstName)
-    },
-    lname() {
-      return this.userapi.map((l) => l.lastName)
-    },
-    user_img() {
-      return this.userapi.map((i) => i.avatarUrl)
-    },
-    grp() {
-      return this.groupapi.map((t) => t.title)
-    },
+    // fname() {
+    //   console.log(this.userdb)
+    //   return this.userapi.map((f) => f.firstName)
+    // },
+    // lname() {
+    //   return this.userapi.map((l) => l.lastName)
+    // },
+    // user_img() {
+    //   return this.userapi.map((i) => i.avatarUrl)
+    // },
+    // grp() {
+    //   return this.groupapi.map((t) => t.title)
+    // },
   },
   methods: {
     // delete user

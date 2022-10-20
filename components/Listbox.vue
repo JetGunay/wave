@@ -1,6 +1,9 @@
 <template>
   <div class="mt-3 mr-2 w-[250px]">
-    <Listbox v-model="selectedDate">
+    <Listbox 
+      v-model="selected"
+      @update:modelValue="check"
+    >
       <div class="relative mt-1">
         <ListboxButton
           class="relative 
@@ -22,7 +25,7 @@
             focus-visible:ring-offset-teal-300 
             sm:text-sm"
         >
-          <span class="block truncate">{{ selectedDate.title }}</span>
+          <span class="block truncate">{{ selected.title }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
@@ -54,9 +57,9 @@
           >
             <ListboxOption
               v-slot="{ active, selected }"
-              v-for="date in dateOptions"
-              :key="date.title"
-              :value="date"
+              v-for="list in props.options"
+              :key="list.title"
+              :value="list"
               as="template"
             >
               <li
@@ -70,7 +73,7 @@
                     selected ? 'font-medium' : 'font-normal',
                     'block truncate',
                   ]"
-                  >{{ date.title }}</span
+                  >{{ list.title }}</span
                 >
                 <span
                   v-if="selected"
@@ -99,11 +102,19 @@
   } from '@headlessui/vue'
   import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
 
-  const dateOptions = [
-    { title: 'Today' },
-    { title: 'This Week' },
-    { title: 'This Month' },
-    // { title: 'Later than this month' },
-  ]
-  const selectedDate = ref(dateOptions[0])
+  const props = defineProps({
+    options: { type: Object }
+  });
+
+  const selected = ref(props.options[0])
+
+  const emit = defineEmits(['selected', 'selectedid', 'selectedarr'])
+  const check = () => {
+    console.log(
+      selected.value.title
+    )
+    emit('selected', selected.value.title);
+    emit('selectedid', selected.value.id);
+    emit('selectedarr', selected.value);
+  }
 </script>

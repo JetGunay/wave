@@ -38,5 +38,65 @@
     { "id": 24, "title": "Cross Brand - Gaming" },
     { "id": 25, "title": "Cross Brand - Sports" },
     { "id": 26, "title": "Wave" }
-  ]
+  ],
+  "qadesmg": {
+    "parent": [
+      { "id": 0, "title": "Design", "total": 40, "add": 0, "pen": "auto", "default": 1, 
+        "children": [
+          { "id": 0, "title": "Copy and T&Cs", "ops": "", "parent": 0 },
+          { "id": 1, "title": "Design accuracy", "ops": "", "parent": 0 }
+        ]
+      },
+      { "id": 1, "title": "Deliverables", "total": 20, "add": 0, "pen": "auto", "default": 1, 
+        "children": [
+          { "id": 0, "title": "Complete sizes", "ops": "", "parent": 1 },
+          { "id": 1, "title": "Correct file sizes", "ops": "", "parent": 1 },
+          { "id": 2, "title": "Correct file naming: Ticket Number_Dimensions_brand (eg. 12345_800x800_Coral)", "ops": "", "parent": 1 }
+        ]
+      },
+      { "id": 2, "title": "Workflow Requirements", "total": 10, "add": 0, "pen": "auto", "default": 1, 
+        "children": [
+          { "id": 0, "title": "Updated Ticket Status", "ops": "", "parent": 2 },
+          { "id": 1, "title": "Logged Time", "ops": "", "parent": 2 },
+          { "id": 2, "title": "Tagging (relevant Line Managers and PM's", "ops": "", "parent": 2 }
+        ]
+      },
+      { "id": 3, "title": "GIF", "total": 30, "add": 0, "pen": "auto", "default": 0, 
+        "children": [
+          { "id": 0, "title": "Seamless loop", "ops": "", "parent": 3 },
+          { "id": 1, "title": "Render quality", "ops": "", "parent": 3 }
+        ]
+      },
+      { "id": 4, "title": "Social Videos", "total": 30, "add": 0, "pen": "auto", "default": 0, 
+        "children": [
+          { "id": 0, "title": "Animation aesthetics", "ops": "", "parent": 4 },
+          { "id": 1, "title": "Music and sound effects", "ops": "", "parent": 4 }
+        ]
+      },
+      { "id": 5, "title": "SVG", "total": 100, "default": 0,
+        "children": [
+          { "id": 0, "title": "Design", "total": 50, "add": 0, "default": 1, 
+            "children": [
+              { "id": 0, "title": "Copy and T&Cs", "ops": "", "parent": 0 },
+              { "id": 1, "title": "Design accuracy", "ops": "", "parent": 0 }
+            ]
+          },
+          { "id": 1, "title": "Deliverables", "total": 30, "add": 0, "default": 1, 
+            "children": [
+              { "id": 0, "title": "Complete sizes", "ops": "", "parent": 1 },
+              { "id": 1, "title": "Correct file sizes", "ops": "", "parent": 1 },
+              { "id": 2, "title": "Correct file naming: Ticket Number_Dimensions_brand (eg. 12345_800x800_Coral)", "ops": "", "parent": 1 }
+            ]
+          },
+          { "id": 2, "title": "Workflow Requirements", "total": 20, "add": 0, "default": 1, 
+            "children": [
+              { "id": 0, "title": "Updated Ticket Status", "ops": "", "parent": 2 },
+              { "id": 1, "title": "Logged Time", "ops": "", "parent": 2 },
+              { "id": 2, "title": "Tagging (relevant Line Managers and PM's", "ops": "", "parent": 2 }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }

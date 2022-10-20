@@ -3,24 +3,8 @@
     <button v-on:click="toggleModal()"
       type="button" 
       data-modal-toggle="authentication-modal"
-      class="block 
-        text-white 
-        bg-blue-700 
-        hover:bg-blue-800 
-        focus:ring-2 
-        focus:outline-none 
-        focus:ring-blue-300 
-        font-medium 
-        rounded-lg 
-        text-sm 
-        px-5 
-        py-2.5 
-        text-center 
-        dark:bg-blue-600 
-        dark:hover:bg-blue-700 
-        dark:focus:ring-blue-800" 
     >
-      Add User
+      <slot name="btntitle"></slot>
     </button>
     <div v-if="showModal" 
       id="authentication-modal" 
@@ -45,7 +29,7 @@
       <div class="relative 
         p-4 
         w-full 
-        max-w-md 
+        max-w-lg 
         h-full 
         md:h-auto"
       >
@@ -98,75 +82,32 @@
               <span class="sr-only">Close modal</span>
             </button>
             <div class="py-6 px-6 lg:px-8">
-              <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-black">Add</h3>
-              <form class="space-y-6">
-                <ComboBox :options="group" 
-                  :placeholder="`Group`" 
-                  :header="`Group`" 
-                  :value="cbTeam" 
-                  @selectedid="cbTeam" 
-                />
-                <ComboBoxUsers :options="users"
-                  :userdb="userdb" 
-                  :placeholder="`User`" 
-                  :header="`User`" 
-                  @selected="cbName" 
-                />
-                <ComboBox :options="role" 
-                  :placeholder="`Role`" 
-                  :header="`Role`" 
-                  @selectedid="cbRole" 
-                />
-                <Checkbox :options="querybrands" 
-                  :placeholder="`Brands`" 
-                  :header="`Brands`" 
-                  @selected="cbBrands" 
-                />
-                <div class="flex justify-between">
-                  <div class="flex items-start">
-                    <button type="submit" 
-                      class="text-white 
-                        bg-red-700 
-                        hover:bg-blue-800 
-                        focus:ring-2 
-                        focus:outline-none 
-                        focus:ring-red-300 
-                        font-medium 
-                        rounded-lg 
-                        text-sm 
-                        px-5 
-                        py-2.5 
-                        text-center 
-                        dark:bg-red-600 
-                        dark:hover:bg-red-700 
-                        dark:focus:ring-red-800" 
-                      v-on:click="toggleModal()"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                  <button @click.prevent="saveUser" 
-                    type="submit" 
+              <slot name="modalbody" />
+              <div class="flex justify-between py-4">
+                <div class="flex items-start">
+                  <button type="submit" 
                     class="text-white 
-                      bg-blue-700 
+                      bg-red-700 
                       hover:bg-blue-800 
                       focus:ring-2 
                       focus:outline-none 
-                      focus:ring-blue-300 
+                      focus:ring-red-300 
                       font-medium 
                       rounded-lg 
                       text-sm 
                       px-5 
                       py-2.5 
                       text-center 
-                      dark:bg-blue-600 
-                      dark:hover:bg-blue-700 
-                      dark:focus:ring-blue-800"
-                    >
-                      Save
-                    </button>
+                      dark:bg-red-600 
+                      dark:hover:bg-red-700 
+                      dark:focus:ring-red-800" 
+                      v-on:click="toggleModal()"
+                  >
+                  Cancel
+                  </button>
                 </div>
-              </form>
+                <slot name="savebtn" />
+              </div>
             </div>
           </div>
         </div>
@@ -193,69 +134,12 @@
         showModal: false,
       }
     },
-    props: {
-      group: Object,
-      users: Object,
-      role: Object,
-      brands: Object,
-      userdb: Object,
-    },
-    computed: {
-      querybrands() {
-        const brand = this.brands;
-        const brandArr = [];
-        for(let i = 0; i < brand.length; i++) {
-          const obj = {
-            id: i,
-            title: brand[i]
-          };
-          brandArr.push(obj)
-        }
-        console.log(brandArr)
-        return brandArr
-      },
-    },
+    props: {},
+    computed: {},
     methods: {
       toggleModal(){
         this.showModal = !this.showModal;
-        console.log(this.brands)
       },
-      cbTeam(id) {
-        this.$emit('cbTeam', id)
-        this.cbTeam = id
-      },
-      cbName(id) {
-        // this.$emit('cbName', id)
-        this.cbName = id
-      },
-      cbRole(id) {
-        // this.$emit('cbRole', id)
-        this.cbRole = id
-      },
-      cbBrands(values) {
-        this.cbBrands = values
-        console.log(values)
-      },
-      async saveUser() {
-        const userId = this.cbName;
-        const groupId = this.cbTeam;
-        const brands = this.cbBrands;
-        const role = this.cbRole;
-        const router = useRouter();
-
-        try {
-          await axios.post('http://localhost:8000/users', {
-            user_id: userId,
-            group_id: groupId,
-            brands: brands.toString(),
-            role: role
-          });
-          router.push('/user', this.toggleModal());
-        } catch (err) {
-          console.log(err)
-        }
-        console.log(userId, brands)
-      }
     }
   }
 </script>

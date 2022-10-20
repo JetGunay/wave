@@ -6,7 +6,8 @@ const db = mysql.createConnection({
   user: 'root',
   password: '',
   port: '8111',
-  database: 'wave_db'
+  database: 'wave_db',
+  multipleStatements: true
 });
 
 export default db;

@@ -33,8 +33,7 @@
             focus-visible:ring-offset-teal-300 
             sm:text-sm"
         >
-          <ComboboxInput
-            :displayValue="(o) => o.title"
+          <ComboboxInput :displayValue="(o) => o.title"
             @input="query = $event.target.value"
             :placeholder="props.placeholder"
             class="w-full 
